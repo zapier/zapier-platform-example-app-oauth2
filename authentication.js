@@ -54,23 +54,6 @@ const refreshAccessToken = (z, bundle) => {
   });
 };
 
-const testAuth = (z /*, bundle*/) => {
-  // Normally you want to make a request to an endpoint that is either specifically designed to test auth, or one that
-  // every user will have access to, such as an account or profile endpoint like /me.
-  const promise = z.request({
-    url: `${process.env.BASE_URL}/auth-test`,
-  });
-
-  // This method can return any truthy value to indicate the credentials are valid.
-  // Raise an error to show
-  return promise.then((response) => {
-    if (response.status === 401) {
-      throw new Error('The access token you supplied is not valid');
-    }
-    return response;
-  });
-};
-
 module.exports = {
   type: 'oauth2',
   oauth2Config: {
@@ -100,5 +83,7 @@ module.exports = {
   },
   // The test method allows Zapier to verify that the access token is valid. We'll execute this
   // method after the OAuth flow is complete to ensure everything is setup properly.
-  test: testAuth
+  test: {
+    url: `${process.env.BASE_URL}/auth-test`
+  }
 };
