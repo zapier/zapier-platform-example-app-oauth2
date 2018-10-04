@@ -5,6 +5,7 @@ const getAccessToken = (z, bundle) => {
       //extra data pulled from the users query string
       accountDomain: bundle.cleanedRequest.querystring.accountDomain,
       code: bundle.inputData.code,
+      redirect_uri: bundle.inputData.redirect_uri,
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
       grant_type: 'authorization_code'
